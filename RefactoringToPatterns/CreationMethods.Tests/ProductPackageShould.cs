@@ -1,8 +1,6 @@
-using System.Runtime.Remoting.Channels;
-using RefactoringToPatterns.CreationMethods.Tests;
 using Xunit;
 
-namespace RefactoringToPatterns.CreationMethods
+namespace RefactoringToPatterns.CreationMethods.Tests
 {
     public class ProductPackageShould
     {
@@ -23,7 +21,7 @@ namespace RefactoringToPatterns.CreationMethods
         }
 
         [Fact]
-        public void CreateWithInternetAndVOIP()
+        public void CreateWithInternetAndVoip()
         {
             var productPackage = new ProductPackage("100MB", 91233788);
 
@@ -35,7 +33,7 @@ namespace RefactoringToPatterns.CreationMethods
         [Fact]
         public void CreateWithInternetAndTv()
         {
-            var productPackage = new ProductPackage("100MB", new string[] {"LaLiga", "Estrenos"});
+            var productPackage = new ProductPackage("100MB", new[] {"LaLiga", "Estrenos"});
 
             Assert.True(productPackage.HasInternet());
             Assert.False(productPackage.HasVOIP());
@@ -43,9 +41,9 @@ namespace RefactoringToPatterns.CreationMethods
         }
 
         [Fact]
-        public void CreateWithInternetVOIPAndTv()
+        public void CreateWithInternetVoipAndTv()
         {
-            var productPackage = new ProductPackage("100MB", 91233788, new string[] {"LaLiga", "Estrenos"});
+            var productPackage = new ProductPackage("100MB", 91233788, new[] {"LaLiga", "Estrenos"});
 
             Assert.True(productPackage.HasInternet());
             Assert.True(productPackage.HasVOIP());
