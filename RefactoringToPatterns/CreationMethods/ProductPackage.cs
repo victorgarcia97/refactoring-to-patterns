@@ -1,4 +1,4 @@
-namespace RefactoringToPatterns.CreationMethods.Tests
+namespace RefactoringToPatterns.CreationMethods
 {
     public class ProductPackage
     {
