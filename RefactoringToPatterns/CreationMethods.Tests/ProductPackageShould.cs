@@ -17,11 +17,17 @@ namespace RefactoringToPatterns.CreationMethods.Tests
         [Fact]
         public void CreateWithInternetAndVoip()
         {
-            var productPackage = new ProductPackage("100MB", 91233788);
+            var productPackage = CreateWithInternetAndTelephone("100MB", 91233788);
 
             Assert.True(productPackage.HasInternet());
             Assert.True(productPackage.HasVOIP());
             Assert.False(productPackage.HasTv());
+        }
+
+        private static ProductPackage CreateWithInternetAndTelephone(string internetLabel, int telephoneNumber)
+        {
+            var productPackage = new ProductPackage(internetLabel, telephoneNumber, null);
+            return productPackage;
         }
 
         [Fact]

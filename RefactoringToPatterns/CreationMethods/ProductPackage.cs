@@ -11,18 +11,6 @@ namespace RefactoringToPatterns.CreationMethods
             _internetLabel = internetLabel;
         }
 
-        public ProductPackage(string internetLabel, int telephoneNumber)
-        {
-            _internetLabel = internetLabel;
-            _telephoneNumber = telephoneNumber;
-        }
-
-        public ProductPackage(string internetLabel, string[] tvChannels)
-        {
-            _internetLabel = internetLabel;
-            _tvChannels = tvChannels;
-        }
-
         public ProductPackage(string internetLabel, int? telephoneNumber, string[] tvChannels)
         {
             _internetLabel = internetLabel;
