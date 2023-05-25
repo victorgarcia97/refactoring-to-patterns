@@ -7,11 +7,17 @@ namespace RefactoringToPatterns.CreationMethods.Tests
         [Fact]
         public void CreateAProductPackageWithOnlyInternet()
         {
-            var productPackage = new ProductPackage("100MB");
+            var productPackage = CreatePackageWithJustInternet("100MB");
 
             Assert.True(productPackage.HasInternet());
             Assert.False(productPackage.HasVOIP());
             Assert.False(productPackage.HasTv());
+        }
+
+        private static ProductPackage CreatePackageWithJustInternet(string internetLabel)
+        {
+            var productPackage = new ProductPackage(internetLabel, null, null);
+            return productPackage;
         }
 
         [Fact]
