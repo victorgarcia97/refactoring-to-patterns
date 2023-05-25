@@ -27,24 +27,30 @@ namespace RefactoringToPatterns.CreationMethods.Tests
         [Fact]
         public void CreateWithInternetAndTv()
         {
-            var productPackage = new ProductPackage("100MB", new[] {"LaLiga", "Estrenos"});
+            var productPackage = CreatePackageWithInternetAndTv("100MB", new[] { "LaLiga", "Estrenos" });
 
             Assert.True(productPackage.HasInternet());
             Assert.False(productPackage.HasVOIP());
             Assert.True(productPackage.HasTv());
         }
 
+        private static ProductPackage CreatePackageWithInternetAndTv(string internetLabel, string[] tvChannels)
+        {
+            var productPackage = new ProductPackage(internetLabel, null, tvChannels);
+            return productPackage;
+        }
+
         [Fact]
         public void CreateWithInternetVoipAndTv()
         {
-            var productPackage = CreatePackageWith("100MB", 91233788, new[] { "LaLiga", "Estrenos" });
+            var productPackage = CreateTrioPackageWith("100MB", 91233788, new[] { "LaLiga", "Estrenos" });
 
             Assert.True(productPackage.HasInternet());
             Assert.True(productPackage.HasVOIP());
             Assert.True(productPackage.HasTv());
         }
 
-        private static ProductPackage CreatePackageWith(string internetLabel, int telephoneNumber, string[] tvChannels)
+        private static ProductPackage CreateTrioPackageWith(string internetLabel, int telephoneNumber, string[] tvChannels)
         {
             var productPackage = new ProductPackage(internetLabel, telephoneNumber, tvChannels);
             return productPackage;
