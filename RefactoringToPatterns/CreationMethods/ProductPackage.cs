@@ -1,14 +1,18 @@
+using System;
+
 namespace RefactoringToPatterns.CreationMethods
 {
     public class ProductPackage
     {
         private readonly string _internetLabel;
+        private readonly int? _mobileNumber;
         private readonly int? _telephoneNumber;
         private readonly string[] _tvChannels;
 
-        public ProductPackage(string internetLabel, int? telephoneNumber, string[] tvChannels)
+        public ProductPackage(string internetLabel, int? mobileNumber, int? telephoneNumber, string[] tvChannels)
         {
             _internetLabel = internetLabel;
+            _mobileNumber = mobileNumber;
             _telephoneNumber = telephoneNumber;
             _tvChannels = tvChannels;
         }
@@ -29,28 +33,16 @@ namespace RefactoringToPatterns.CreationMethods
             return _tvChannels != null;
         }
 
-        public static ProductPackage CreatePackageWithJustInternet(string internetLabel)
+
+        public bool HasMobile()
         {
-            var productPackage = new ProductPackage(internetLabel, null, null);
-            return productPackage;
+            return _mobileNumber != null;
         }
 
-        public static ProductPackage CreateWithInternetAndTelephone(string internetLabel, int telephoneNumber)
+        public static ProductPackage CreatePackageWith(string internetLabel, int? mobileNumber, int? telephoneNumber,
+            string[] tvChannels)
         {
-            var productPackage = new ProductPackage(internetLabel, telephoneNumber, null);
-            return productPackage;
-        }
-
-        public static ProductPackage CreatePackageWithInternetAndTv(string internetLabel, string[] tvChannels)
-        {
-            var productPackage = new ProductPackage(internetLabel, null, tvChannels);
-            return productPackage;
-        }
-
-        public static ProductPackage CreateTrioPackageWith(string internetLabel, int telephoneNumber, string[] tvChannels)
-        {
-            var productPackage = new ProductPackage(internetLabel, telephoneNumber, tvChannels);
-            return productPackage;
+            return new ProductPackage(internetLabel, mobileNumber, telephoneNumber, tvChannels);
         }
     }
 }
