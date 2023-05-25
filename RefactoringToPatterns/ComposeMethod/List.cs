@@ -34,10 +34,15 @@ namespace RefactoringToPatterns.ComposeMethod
         {
             var newElements = new object[_elements.Length + 10];
 
-            for (var i = 0; i < _size; i++)
-                newElements[i] = _elements[i];
+            CopyOldList(newElements);
 
             _elements = newElements;
+        }
+
+        private void CopyOldList(object[] newElements)
+        {
+            for (var i = 0; i < _size; i++)
+                newElements[i] = _elements[i];
         }
 
         private void AddElement(object element)
