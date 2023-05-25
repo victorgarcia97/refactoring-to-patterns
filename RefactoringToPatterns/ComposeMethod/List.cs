@@ -31,8 +31,13 @@ namespace RefactoringToPatterns.ComposeMethod
                     _elements = newElements;
                 }
 
-                _elements[_size++] = element;
+                AddElement(element);
             }
+        }
+
+        private void AddElement(object element)
+        {
+            _elements[_size++] = element;
         }
 
         public object[] Elements()
