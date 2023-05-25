@@ -28,5 +28,29 @@ namespace RefactoringToPatterns.CreationMethods
         {
             return _tvChannels != null;
         }
+
+        public static ProductPackage CreatePackageWithJustInternet(string internetLabel)
+        {
+            var productPackage = new ProductPackage(internetLabel, null, null);
+            return productPackage;
+        }
+
+        public static ProductPackage CreateWithInternetAndTelephone(string internetLabel, int telephoneNumber)
+        {
+            var productPackage = new ProductPackage(internetLabel, telephoneNumber, null);
+            return productPackage;
+        }
+
+        public static ProductPackage CreatePackageWithInternetAndTv(string internetLabel, string[] tvChannels)
+        {
+            var productPackage = new ProductPackage(internetLabel, null, tvChannels);
+            return productPackage;
+        }
+
+        public static ProductPackage CreateTrioPackageWith(string internetLabel, int telephoneNumber, string[] tvChannels)
+        {
+            var productPackage = new ProductPackage(internetLabel, telephoneNumber, tvChannels);
+            return productPackage;
+        }
     }
 }
