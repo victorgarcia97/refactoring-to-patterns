@@ -1,31 +1,37 @@
-using System.Linq;
-
 namespace RefactoringToPatterns.CommandPattern
 {
     public class MarsRover
     {
-        private int _x;
-        private int _y;
+        public int X;
+        public int Y;
         public char Direction;
         public const string AvailableDirections = "NESW";
         public readonly string[] Obstacles;
-        private bool _obstacleFound;
+        public bool ObstacleFound;
         private readonly RotateRightCommand _rotateRightCommand;
         private readonly RotateLeftCommand _rotateLeftCommand;
+        private readonly MoveNorthCommand _moveNorthCommand;
+        private readonly MoveWestCommand _moveWestCommand;
+        private readonly MoveSouthCommand _moveSouthCommand;
+        private readonly MoveEastCommand _moveEastCommand;
 
         public MarsRover(int x, int y, char direction, string[] obstacles)
         {
-            _x = x;
-            _y = y;
+            X = x;
+            Y = y;
             Direction = direction;
             Obstacles = obstacles;
             _rotateRightCommand = new RotateRightCommand(this);
             _rotateLeftCommand = new RotateLeftCommand(this);
+            _moveNorthCommand = new MoveNorthCommand(this);
+            _moveWestCommand = new MoveWestCommand(this);
+            _moveSouthCommand = new MoveSouthCommand(this);
+            _moveEastCommand = new MoveEastCommand(this);
         }
         
         public string GetState()
         {
-            return !_obstacleFound ? $"{_x}:{_y}:{Direction}" : $"O:{_x}:{_y}:{Direction}";
+            return !ObstacleFound ? $"{X}:{Y}:{Direction}" : $"O:{X}:{Y}:{Direction}";
         }
 
         public void Execute(string commands)
@@ -37,16 +43,16 @@ namespace RefactoringToPatterns.CommandPattern
                     switch (Direction)
                     {
                         case 'E':
-                            MoveEast();
+                            _moveEastCommand.MoveEast();
                             break;
                         case 'S':
-                            MoveSouth();
+                            _moveSouthCommand.MoveSouth();
                             break;
                         case 'W':
-                            MoveWest();
+                            _moveWestCommand.MoveWest();
                             break;
                         case 'N':
-                            MoveNorth();
+                            _moveNorthCommand.MoveNorth();
                             break;
                     }
                 }
@@ -58,34 +64,6 @@ namespace RefactoringToPatterns.CommandPattern
                     _rotateRightCommand.RotateRight();
                 }
             }
-        }
-
-        private void MoveNorth()
-        {
-            _obstacleFound = Obstacles.Contains($"{_x}:{_y - 1}");
-            // check if rover reached plateau limit or found an obstacle
-            _y = _y > 0 && !_obstacleFound ? _y -= 1 : _y;
-        }
-
-        private void MoveWest()
-        {
-            _obstacleFound = Obstacles.Contains($"{_x - 1}:{_y}");
-            // check if rover reached plateau limit or found an obstacle
-            _x = _x > 0 && !_obstacleFound ? _x -= 1 : _x;
-        }
-
-        private void MoveSouth()
-        {
-            _obstacleFound = Obstacles.Contains($"{_x}:{_y + 1}");
-            // check if rover reached plateau limit or found an obstacle
-            _y = _y < 9 && !_obstacleFound ? _y += 1 : _y;
-        }
-
-        private void MoveEast()
-        {
-            _obstacleFound = Obstacles.Contains($"{_x + 1}:{_y}");
-            // check if rover reached plateau limit or found an obstacle
-            _x = _x < 9 && !_obstacleFound ? _x += 1 : _x;
         }
     }
 }
