@@ -43,25 +43,25 @@ namespace RefactoringToPatterns.CommandPattern
                     switch (Direction)
                     {
                         case 'E':
-                            _moveEastCommand.MoveEast();
+                            _moveEastCommand.Execute();
                             break;
                         case 'S':
-                            _moveSouthCommand.MoveSouth();
+                            _moveSouthCommand.Execute();
                             break;
                         case 'W':
-                            _moveWestCommand.MoveWest();
+                            _moveWestCommand.Execute();
                             break;
                         case 'N':
-                            _moveNorthCommand.MoveNorth();
+                            _moveNorthCommand.Execute();
                             break;
                     }
                 }
                 else if(command == 'L')
                 {
-                    _rotateLeftCommand.RotateLeft();
+                    _rotateLeftCommand.Execute();
                 } else if (command == 'R')
                 {
-                    _rotateRightCommand.RotateRight();
+                    _rotateRightCommand.Execute();
                 }
             }
         }

@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandPattern.Tests\MarsRoverShould.cs" />
+    <Compile Include="CommandPattern\ICommand.cs" />
     <Compile Include="CommandPattern\MarsRover.cs" />
     <Compile Include="CommandPattern\MoveEastCommand.cs" />
     <Compile Include="CommandPattern\MoveNorthCommand.cs" />

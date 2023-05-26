@@ -1,6 +1,6 @@
 namespace RefactoringToPatterns.CommandPattern
 {
-    public class RotateLeftCommand
+    public class RotateLeftCommand: ICommand
     {
         private MarsRover _marsRover;
 
@@ -9,7 +9,7 @@ namespace RefactoringToPatterns.CommandPattern
             _marsRover = marsRover;
         }
 
-        public void RotateLeft()
+        public void Execute()
         {
             // get new direction
             var currentDirectionPosition = MarsRover.AvailableDirections.IndexOf(_marsRover.Direction);

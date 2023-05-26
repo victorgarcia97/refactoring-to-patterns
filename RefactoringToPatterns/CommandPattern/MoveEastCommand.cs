@@ -2,7 +2,7 @@ using System.Linq;
 
 namespace RefactoringToPatterns.CommandPattern
 {
-    public class MoveEastCommand
+    public class MoveEastCommand: ICommand
     {
         private MarsRover _marsRover;
 
@@ -11,7 +11,7 @@ namespace RefactoringToPatterns.CommandPattern
             _marsRover = marsRover;
         }
 
-        public void MoveEast()
+        public void Execute()
         {
             _marsRover.ObstacleFound = _marsRover.Obstacles.Contains($"{_marsRover.X + 1}:{_marsRover.Y}");
             // check if rover reached plateau limit or found an obstacle
