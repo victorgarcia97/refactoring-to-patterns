@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace RefactoringToPatterns.CommandPattern
 {
     public class MarsRover
@@ -8,12 +10,8 @@ namespace RefactoringToPatterns.CommandPattern
         public const string AvailableDirections = "NESW";
         public readonly string[] Obstacles;
         public bool ObstacleFound;
-        private readonly RotateRightCommand _rotateRightCommand;
-        private readonly RotateLeftCommand _rotateLeftCommand;
-        private readonly MoveNorthCommand _moveNorthCommand;
-        private readonly MoveWestCommand _moveWestCommand;
-        private readonly MoveSouthCommand _moveSouthCommand;
-        private readonly MoveEastCommand _moveEastCommand;
+        private readonly Dictionary<char, ICommand> movements = new Dictionary<char, ICommand>();
+        private readonly Dictionary<char, ICommand> rotations = new Dictionary<char, ICommand>();
 
         public MarsRover(int x, int y, char direction, string[] obstacles)
         {
@@ -21,12 +19,12 @@ namespace RefactoringToPatterns.CommandPattern
             Y = y;
             Direction = direction;
             Obstacles = obstacles;
-            _rotateRightCommand = new RotateRightCommand(this);
-            _rotateLeftCommand = new RotateLeftCommand(this);
-            _moveNorthCommand = new MoveNorthCommand(this);
-            _moveWestCommand = new MoveWestCommand(this);
-            _moveSouthCommand = new MoveSouthCommand(this);
-            _moveEastCommand = new MoveEastCommand(this);
+            movements.Add('E', new MoveEastCommand(this));
+            movements.Add('S', new MoveSouthCommand(this));
+            movements.Add('W', new MoveWestCommand(this));
+            movements.Add('N', new MoveNorthCommand(this));
+            rotations.Add('L', new RotateLeftCommand(this));
+            rotations.Add('R', new RotateRightCommand(this));
         }
         
         public string GetState()
@@ -40,28 +38,15 @@ namespace RefactoringToPatterns.CommandPattern
             {
                 if (command == 'M')
                 {
-                    switch (Direction)
-                    {
-                        case 'E':
-                            _moveEastCommand.Execute();
-                            break;
-                        case 'S':
-                            _moveSouthCommand.Execute();
-                            break;
-                        case 'W':
-                            _moveWestCommand.Execute();
-                            break;
-                        case 'N':
-                            _moveNorthCommand.Execute();
-                            break;
-                    }
+                    var move = movements[Direction];
+                    move.Execute();
                 }
                 else if(command == 'L')
                 {
-                    _rotateLeftCommand.Execute();
+                    rotations[command].Execute();
                 } else if (command == 'R')
                 {
-                    _rotateRightCommand.Execute();
+                    rotations[command].Execute();
                 }
             }
         }
