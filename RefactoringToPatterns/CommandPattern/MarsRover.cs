@@ -10,8 +10,8 @@ namespace RefactoringToPatterns.CommandPattern
         public const string AvailableDirections = "NESW";
         public readonly string[] Obstacles;
         public bool ObstacleFound;
-        private readonly Dictionary<char, ICommand> movements = new Dictionary<char, ICommand>();
-        private readonly Dictionary<char, ICommand> rotations = new Dictionary<char, ICommand>();
+        private readonly Dictionary<char, ICommand> _movements = new Dictionary<char, ICommand>();
+        private readonly Dictionary<char, ICommand> _rotations = new Dictionary<char, ICommand>();
 
         public MarsRover(int x, int y, char direction, string[] obstacles)
         {
@@ -19,12 +19,12 @@ namespace RefactoringToPatterns.CommandPattern
             Y = y;
             Direction = direction;
             Obstacles = obstacles;
-            movements.Add('E', new MoveEastCommand(this));
-            movements.Add('S', new MoveSouthCommand(this));
-            movements.Add('W', new MoveWestCommand(this));
-            movements.Add('N', new MoveNorthCommand(this));
-            rotations.Add('L', new RotateLeftCommand(this));
-            rotations.Add('R', new RotateRightCommand(this));
+            _movements.Add('E', new MoveEastCommand(this));
+            _movements.Add('S', new MoveSouthCommand(this));
+            _movements.Add('W', new MoveWestCommand(this));
+            _movements.Add('N', new MoveNorthCommand(this));
+            _rotations.Add('L', new RotateLeftCommand(this));
+            _rotations.Add('R', new RotateRightCommand(this));
         }
         
         public string GetState()
@@ -34,19 +34,17 @@ namespace RefactoringToPatterns.CommandPattern
 
         public void Execute(string commands)
         {
-            foreach(char command in commands)
+            foreach(var command in commands)
             {
-                if (command == 'M')
+                switch (command)
                 {
-                    var move = movements[Direction];
-                    move.Execute();
-                }
-                else if(command == 'L')
-                {
-                    rotations[command].Execute();
-                } else if (command == 'R')
-                {
-                    rotations[command].Execute();
+                    case 'M':
+                        _movements[Direction].Execute();
+                        break;
+                    case 'L':
+                    case 'R':
+                        _rotations[command].Execute();
+                        break;
                 }
             }
         }
